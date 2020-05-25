@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
 import store from '../redux/store'
-import {increment,decrement} from '../redux/actions/count'
+import {createIncrementAction,createDecrementAction} from '../redux/count_action_creator'
+import {INCREMENT,DECREMENT} from '../redux/action_types'
+
 
 export default class Count extends Component {
   //加法回调
   increment = () =>{
     //获取select所选值
     const {value} = this.refs.user_selectd
-    store.dispatch(increment(value*1))
+    store.dispatch(createIncrementAction(value*1))
   }
   //减法回调
   decrement = () =>{
     //获取select所选值
     const {value} = this.refs.user_selectd
-    store.dispatch(decrement(value*1))
+    store.dispatch(createDecrementAction(value*1))
   }
   //求和为奇数回调
   incrementIfOdd = () =>{
@@ -22,7 +24,7 @@ export default class Count extends Component {
     //获取原来的和
     let count = store.getState()
     if(count %2 ===1){
-      store.dispatch(increment(value*1))
+      store.dispatch(createIncrementAction(value*1))
     }
   }
   //异步回调
@@ -30,7 +32,7 @@ export default class Count extends Component {
     //1.获取select所选值
     const {value} = this.refs.user_selectd
     setTimeout(() => {
-      store.dispatch(increment(value*1))
+      store.dispatch(createIncrementAction(value*1))
     }, 500);
   }
   render() {
