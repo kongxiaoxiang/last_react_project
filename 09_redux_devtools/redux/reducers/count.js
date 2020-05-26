@@ -1,5 +1,5 @@
 //action形如{type:xxxx,data:xxxx}
-//该函数是为count服务的reducer
+//该函数是为count服务的reducer  reducer是纯函数
 
 import {INCREMENT,DECREMENT} from '../action_types'
 
