@@ -31,9 +31,10 @@ export default class Count extends Component {
     this.props.incrementAsync(value*1,2000)
   }
   render() {
+    const {count,persons} = this.props
     return (
       <div>
-        <h2>当前求和为:{this.props.count}</h2>
+        <h2>当前求和为:{count},下方总人数为:{persons}</h2>
         <select ref='user_selectd'>
           <option value='1'>1</option>
           <option value='2'>2</option>

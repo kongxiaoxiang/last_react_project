@@ -9,7 +9,12 @@ import {increment,decrement,incrementAsync} from '../redux/actions/count'
 
 
 export default connect(
-  state => ({count:state.number}),   //映射state(总)
+  state => (   //映射state(总)
+    {
+      count:state.number,
+      persons:state.persons.length
+    }
+  ),  
   /* 精简版
   dispatch =>
     ({

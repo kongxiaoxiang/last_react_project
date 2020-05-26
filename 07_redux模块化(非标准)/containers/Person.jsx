@@ -6,6 +6,11 @@ import {connect} from 'react-redux'
 import {addPersons} from '../redux/actions/person'
 
 export default connect(
-  state => ({persons:state.persons}),
+  state => (
+    {
+      persons:state.persons,
+      count:state.number
+    }
+  ),
   {addPersons}
 )(Person)
