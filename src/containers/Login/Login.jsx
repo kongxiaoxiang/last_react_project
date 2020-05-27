@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
-import { Form, Input, Button} from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button, message} from 'antd';
+import { UserOutlined, LockOutlined} from '@ant-design/icons';
+import {connect} from 'react-redux'
+import {saveUserInfo} from '../../redux/actions/login'
 import {reqLogin} from '@/api'
 import './css/login.less'
 import logo from './imgs/logo.png'
 
 const {Item} = Form
 
-export default class Login extends Component {
+class Login extends Component {
   //表单提交且验证通过的回调
   onFinish = async values => {
-    await reqLogin(values)
+    let result = await reqLogin(values)
+    const {status,msg,data} = result
+    if(status === 0){
+      message.success('登陆成功',1)
+      this.props.saveUserInfo(data)  //保存用户信息
+      this.props.history.replace('/admin') //路由跳转页面
+    }else{
+      message.error(msg)
+    }
   }
   //密码的验证器
   pwdValidator = (_,value='')=>{
@@ -72,3 +82,7 @@ export default class Login extends Component {
     )
   }
 }
+export default connect(
+  state => ({}),
+  {saveUserInfo}
+)(Login)

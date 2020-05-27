@@ -8,6 +8,8 @@
 */
 import axios from 'axios'  //axios核心库
 import qs from 'querystring'  //处理json转为urlencoded
+import NProgress from 'nprogress' //引入nprogress制作进度条
+import 'nprogress/nprogress.css' //引入样式
 import {message as msg} from 'antd'
 
 //设置请求基本路径
@@ -17,6 +19,7 @@ axios.defaults.timeout = 2000
 
 //请求拦截器
 axios.interceptors.request.use((config) =>{
+  NProgress.start()
   const {method,data} = config
   if(method.toLowerCase() === 'post' && data instanceof Object){
     config.data = qs.stringify(data)
@@ -28,10 +31,12 @@ axios.interceptors.request.use((config) =>{
 axios.interceptors.response.use(
   //成功的回调: 状态码以2开头
   response => {
+    NProgress.done()
     return response.data
   },
   //失败的回调:1.状态码不是以2开头 2.网络不通  3.超时
   err => {
+    NProgress.done()
     let errmsg = '未知错误，请联系管理员'
     const {message} = err
     if(message.indexOf('401') !== -1) errmsg = '未登录或身份过期,请重新登录!'
