@@ -16,7 +16,7 @@ class Login extends Component {
     const {status,msg,data} = result
     if(status === 0){
       message.success('登陆成功',1)
-      this.props.saveUserInfo(data)  //保存用户信息
+      this.props.saveUserInfo(data)  //保存用户信息到redux中和localstorage中
       this.props.history.replace('/admin') //路由跳转页面
     }else{
       message.error(msg)
